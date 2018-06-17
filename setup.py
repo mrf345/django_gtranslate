@@ -2,22 +2,22 @@
 Django-Gtranslate
 -------------
 A Django app to add Googletrans google translation to the template 
-with ability to cache translation to external pretty .json file
+with ability to cache translation to external pretty .json file.
 """
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 setup(
     name='Django-Gtranslate',
-    version='0.6',
+    version='0.1.1',
+    packages=find_packages(),
     url='https://github.com/mrf345/django_gtranslate/',
-    download_url='https://github.com/mrf345/django_gtranslate/archive/0.6.tar.gz',
+    download_url='https://github.com/mrf345/django_gtranslate/archive/0.1.1.tar.gz',
     license='MIT',
     author='Mohamed Feddad',
     author_email='mrf345@gmail.com',
     description='Googletrans google translation django app',
     long_description=__doc__,
-    packages=['django_gtranslate'],
     include_package_data=True,
     platforms='any',
     install_requires=[
