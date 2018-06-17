@@ -16,13 +16,14 @@
 #### - Add it to the INSTALLED_APPS:
 ```python
 INSTALLED_APPS = [
-    'django_gtranslate.gtranslate',
+    'gtranslate',
     # ...
 ]
 ```
 
 #### - Inside jinja template:
 ```jinja
+{% load gtranslate %}
 <h1>{% gtranslate 'text to translate' 'fr' %}</h1>
 ```
 
