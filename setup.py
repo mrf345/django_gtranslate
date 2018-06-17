@@ -9,14 +9,15 @@ from setuptools import setup
 
 setup(
     name='Django-Gtranslate',
-    version='0.5',
+    version='0.6',
     url='https://github.com/mrf345/django_gtranslate/',
-    download_url='https://github.com/mrf345/django_gtranslate/archive/0.5.tar.gz',
+    download_url='https://github.com/mrf345/django_gtranslate/archive/0.6.tar.gz',
     license='MIT',
     author='Mohamed Feddad',
     author_email='mrf345@gmail.com',
     description='Googletrans google translation django app',
     long_description=__doc__,
+    packages=['django_gtranslate'],
     include_package_data=True,
     platforms='any',
     install_requires=[
