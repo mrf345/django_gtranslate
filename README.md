@@ -1,9 +1,11 @@
 <h1 align='center'> django_gtranslate </h1>
 <h3 align='center'>
-    A Django app to add Googletrans google translation to the template with ability to cache translation to external pretty .json file.
+    A Django app to add google translation to the template and
+    adds view for dynamic translation, finally stores it in the database 
 </h3>
 
 ## Install:
+
 #### - With pip
 > - `pip install Django-Gtranslate` <br />
 
@@ -13,13 +15,16 @@
 > - `python setup.py install`
 
 ## Setup:
-#### - Add it to the INSTALLED_APPS:
+#### - Add it to the `settings.py` in `INSTALLED_APPS`:
 ```python
 INSTALLED_APPS = [
     'gtranslate',
-    # ...
+    ...
 ]
 ```
+> After adding the app make sure to do migration for caching model :
+> - `python manage.py makemigrations gtranslate`
+> - `python manage.py migrate gtranslate`
 
 #### - Inside jinja template:
 ```jinja
@@ -27,6 +32,22 @@ INSTALLED_APPS = [
 <h1>{% gtranslate 'text to translate' 'fr' %}</h1>
 ```
 
+#### - To add a dynamic translation view to `urls.py`: 
+```python
+from django.urls import path, include
+
+urlpatterns = [
+    ...
+    # for unauthorized access dynamic translation 
+    path('gtran/', include('gtranslate.urls')),
+    # for user authorized dynamic translation
+    path('gtran/', include('gtranslate.urls_auth')),
+    ...
+]
+```
+> now you can access `http://localhost:8000/<src>/<dest>/<text>` and it should return json response `{'translation': 'translated text'}`
+
+####
 
 ## - Options:
 ```python
@@ -34,13 +55,13 @@ def gtranslate(
         text='translation !', # Text to be translated
         dest='fr', # Language to translate to
         src='en', # Language to be translated from
-        cache=False, # To store translation in 'gt_cache.json' file
+        cache=False, # To store and restore the translation in the database
         ): 
 ```
 
 
 #### - List of supported languages:
-```python
+`
 {
     'af': 'afrikaans',
     'sq': 'albanian',
@@ -150,7 +171,7 @@ def gtranslate(
     'he': 'Hebrew'
 }
 
-```
+`
 
 ## Credit:
 > - [Googletrans][1311353e]: Awesome free and unlimited python library that implements Google Translate API
