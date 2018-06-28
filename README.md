@@ -1,4 +1,9 @@
 <h1 align='center'> django_gtranslate </h1>
+<center>
+
+[![Build Status](https://travis-ci.com/mrf345/django_gtranslate.svg?branch=master)](https://travis-ci.com/mrf345/django_gtranslate)
+
+</center>
 <h3 align='center'>
     A Django app to add google translation to the template and
     adds view for dynamic translation, finally stores it in the database 
