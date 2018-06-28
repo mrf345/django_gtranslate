@@ -45,7 +45,7 @@ urlpatterns = [
     ...
 ]
 ```
-> now you can access `http://localhost:8000/<src>/<dest>/<text>` and it should return json response `{'translation': 'translated text'}`
+> now you can access `http://localhost:8000/<src>/<dest>/<text>` and, it should return json response `{'translation': 'translated text'}`
 
 ####
 
@@ -55,14 +55,13 @@ def gtranslate(
         text='translation !', # Text to be translated
         dest='fr', # Language to translate to
         src='en', # Language to be translated from
-        cache=False, # To store and restore the translation in the database
+        cache=False, # To store and restore the translation in and from the database
         ): 
 ```
 
 
 #### - List of supported languages:
-`
-{
+`{
     'af': 'afrikaans',
     'sq': 'albanian',
     'am': 'amharic',
@@ -169,9 +168,7 @@ def gtranslate(
     'zu': 'zulu',
     'fil': 'Filipino',
     'he': 'Hebrew'
-}
-
-`
+}`
 
 ## Credit:
 > - [Googletrans][1311353e]: Awesome free and unlimited python library that implements Google Translate API
