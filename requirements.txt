@@ -1,4 +1,4 @@
 Django==2.0.6
 googletrans==2.3.0
 coverage==4.0.3
-python-coveralls==1.11.0
+python-coveralls
