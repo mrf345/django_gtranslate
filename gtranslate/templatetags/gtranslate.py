@@ -1,7 +1,6 @@
 from django import template
 from googletrans import Translator as T
-from os.path import isfile
-from json import dumps, load
+from ..models import gTranslation
 
 
 register = template.Library()
@@ -18,26 +17,6 @@ s_languages = [
     'tr', 'uk', 'ur', 'uz', 'vi', 'cy', 'xh', 'yi', 'yo', 'zu', 'fil'
 ]
 
-def getCache(f_path='gt_cache.json'):
-    """
-    function to try loading cache file and return it
-    """
-    try:
-        with open(f_path, 'r+') as file:
-            return load(file)
-    except Exception:
-        raise(IOError('gtranslate(cache=True) failed to load cached file.'))
-
-
-def cacheIt(inp_var, f_path='gt_cache.json'):
-    """
-    function to overwrite the cached translation file
-    """
-    with open(f_path, 'w+') as file:
-        file.write(dumps(
-            inp_var, indent=4, separators=(',', ': '), sort_keys=True
-        ))
-
 
 @register.simple_tag
 def gtranslate(text='translate !', dest='fr', src='en', cache=False):
@@ -49,7 +28,6 @@ def gtranslate(text='translate !', dest='fr', src='en', cache=False):
         @param: src language to translate from (Default: 'en')
         @param: cache to enable caching into gt_cache.json (Default: False)
     """
-    # return T().translate(text, dest, src).text
     for att in ['text', 'src', 'dest']:
         if not isinstance(eval(att), str):
             raise(AttributeError(
@@ -63,20 +41,10 @@ def gtranslate(text='translate !', dest='fr', src='en', cache=False):
         raise(AttributeError(
             'gtranslate(dest=' + dest + ') language is not supported'
         ))
-    t = T()
     if cache:
-        if isfile('gt_cache.json'):
-            data = getCache()
-            if text in data.keys():
-                if dest not in data[text].keys():
-                    data[text][dest] = t.translate(text, dest, src).text
-            else:
-                data[text] = {dest: t.translate(text, dest, src).text}
-            cacheIt(data)
-            return data[text][dest]
-        else:
-            translation = t.translate(text, dest, src).text
-            cacheIt({text: {dest: translation}})
-            return translation
-    else:
-        return t.translate(text, dest, src).text
+        for gTran in gTranslation.objects.all().filter(text=text, language=dest):
+            return gTran.translation
+    gTran = T().translate(text, dest, src).text
+    if cache:
+        gTranslation(text=text, language=dest, translation=gTran).save()
+    return gTran
