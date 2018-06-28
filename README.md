@@ -1,6 +1,7 @@
 <h1 align='center'> django_gtranslate </h1>
 <p align='center'>
 <a href="https://travis-ci.com/mrf345/django_gtranslate"><img src="https://travis-ci.com/mrf345/django_gtranslate.svg?branch=master" /></a>
+<a href='https://coveralls.io/github/mrf345/django_gtranslate?branch=master'><img src='https://coveralls.io/repos/github/mrf345/django_gtranslate/badge.svg?branch=master' alt='Coverage Status' /></a>
 </p>
 <h3 align='center'>
     A Django app to add google translation to the template and
