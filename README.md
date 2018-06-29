@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     ...
 ]
 ```
-> After adding the app make sure to do migration for caching model :
+> After adding the app make sure to do migration for caching modal :
 > - `python manage.py makemigrations gtranslate`
 > - `python manage.py migrate gtranslate`
 
