@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from django.urls import path
+from django.contrib.auth.models import User
 from json import loads
 from googletrans import Translator
 from .models import gTranslation
@@ -99,4 +100,35 @@ class TranslationStorage_TestCase(TestCase):
         """ to test function which previous tests based on """
         T = Translator()
         translation = T.translate(self.text, self.dest, self.src).text
-        self.assertEqual(translation, gtranslate(text=self.text, dest=self.dest, src=self.src))
+        self.assertEqual(
+            translation, gtranslate(
+                text=self.text, dest=self.dest, src=self.src
+            )
+        )
+
+    def test_false_str_input_gtranslate_func(self):
+        """ test raising errors of false str input """       
+        try:
+            gtranslate(text=False, dest=self.dest, src=self.src)
+        except:
+            assert True is True
+        try:
+            gtranslate(text=self.text, dest=self.dest, src='nothing')
+        except:
+            assert True is True
+        try:
+            gtranslate(text=self.text, dest='nothing', src=self.src)
+        except:
+            assert True is True
+
+    def test_getting_translation_from_cache_return(self):
+        """ test returning already cached translation from modal """
+        translation = gtranslate(
+            text=self.text, dest=self.dest,
+            src=self.src, cache=True
+        )
+        cached_translation = gtranslate(
+            text=self.text, dest=self.dest, 
+            src=self.src, cache=True
+        )
+        assert translation == cached_translation

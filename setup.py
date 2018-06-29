@@ -9,10 +9,10 @@ from setuptools import setup, find_packages
 
 setup(
     name='Django-Gtranslate',
-    version='0.1.1',
+    version='0.1.2',
     packages=find_packages(),
     url='https://github.com/mrf345/django_gtranslate/',
-    download_url='https://github.com/mrf345/django_gtranslate/archive/0.1.1.tar.gz',
+    download_url='https://github.com/mrf345/django_gtranslate/archive/0.1.2.tar.gz',
     license='MIT',
     author='Mohamed Feddad',
     author_email='mrf345@gmail.com',
